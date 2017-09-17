@@ -42,6 +42,9 @@ namespace TechJobsConsole
                     {
                         List<string> results = JobData.FindAll(columnChoice);
 
+                        //Sort List
+                        results.Sort();
+
                         Console.WriteLine("\n*** All " + columnChoices[columnChoice] + " Values ***");
                         foreach (string item in results)
                         {
@@ -63,7 +66,10 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        //FindByValue method call
+                        searchResults = JobData.FindByValue(searchTerm);
+                        PrintJobs(searchResults);
+                        //Console.WriteLine("Search all fields not yet implemented.");
                     }
                     else
                     {
@@ -118,7 +124,38 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("printJobs is not implemented yet");
+            
+            //choice selection
+            if (someJobs.Count == 0) 
+            {
+                Console.WriteLine("No Results"); 
+            }
+            else
+            {
+                Console.WriteLine("{0} Results Found\n", someJobs.Count);
+                //outer loop - print list of jobs
+                for (int i = 0; i < someJobs.Count; i++)
+                {
+                    Console.WriteLine("*****");
+
+                    //inner loop 2 - print each job's details via its key/value pair
+                    foreach (KeyValuePair<string, string> s in someJobs[i])
+                    {
+                        Console.WriteLine("{0}: {1}", s.Key, s.Value);
+                    }
+
+                    Console.WriteLine("*****\n");
+
+                    /*****
+                    position type: Data Scientist / Business Intelligence
+                    name: Sr.IT Analyst(Data/ BI)
+                    employer: Bull Moose Industries
+                    location: Saint Louis
+                    core competency: Statistical Analysis
+                    *****/
+                }
+            }
+            
         }
     }
 }
